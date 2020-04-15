@@ -22,6 +22,7 @@ class Carte:
         self.valeurnum=valeurnum
         self.valeur=valeur
         self.enseigne=enseigne
+        
 
     
     def affiche(self):

@@ -1,3 +1,4 @@
+#evol1
 from random import randint,seed
 lcouleurs = ["ROUGE","NOIR"] 
 lvaleurs =[ (0,"2"),
@@ -22,7 +23,7 @@ class Carte:
         self.valeurnum=valeurnum
         self.valeur=valeur
         self.enseigne=enseigne
-        
+
 
     
     def affiche(self):

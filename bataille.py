@@ -69,15 +69,61 @@ class Paquet:
         #         p2.ajoute_carte(self.cartes.pop())
         #         tour=1
         # print()
- 
         p1.cartes = self.cartes[1::2] 
         p2.cartes = self.cartes[0::2]
         print()
-        
+#
+# def copie_paquet(self,paquet_source,paquet_cible):
+#      paquet_cible.cartes =+ paquet_source.cartes
+
 seed()
 paquet=Paquet("PLEIN")
 paquetj1=Paquet(None)
 paquetj2=Paquet(None)
+paquetjeu=Paquet(None)
 paquet.melange()
 paquet.distribue(paquetj1,paquetj2)
+
+while True:
+    cartej1 = paquetj1.cartes.pop()
+    if cartej1 == None :
+        print("Joueur 1 a perdu")
+        break
+    cartej2 = paquetj2.cartes.pop()
+        print("Joueur 2 a perdu")
+        break
+
+    paquetjeu.ajoute_carte(cartej1)
+    paquetjeu.ajoute_carte(cartej2)
+    if cartej1.valeurnum > cartej2.valeurnum:
+        print("---------------------")
+        print("Joueur 1 gagne")
+        print("Joueur 1")
+        cartej1.affiche()
+        print("Joueur 2")
+        cartej2.affiche()
+        print("---------------------")
+        paquetj1.cartes+=paquetjeu.cartes
+        paquetjeu=None
+    if cartej1.valeurnum < cartej2.valeurnum:
+        print("---------------------")
+        print("Joueur 2 gagne")
+        print("Joueur 1")
+        cartej1.affiche()
+        print("Joueur 2")
+        cartej2.affiche()
+        print("---------------------")
+        paquetj2.cartes+=paquetjeu.cartes    
+        paquetjeu=None
+    if cartej1.valeurnum == cartej2.valeurnum:
+        print("---------------------")
+        print("Bataille")
+        print("Joueur 1")
+        cartej1.affiche()
+        print("Joueur 2")
+        cartej2.affiche()
+        print("---------------------")
+
+        
+        
 

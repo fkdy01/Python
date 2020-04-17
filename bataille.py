@@ -16,6 +16,7 @@ lvaleurs =[ (0,"2"),
             (12,"AS")] 
 lenseignes=["COEUR","CARREAU","PIQUE","TREFLE"] 
 lenseignescouleur=[("COEUR","ROUGE"),("CARREAU","ROUGE"),("PIQUE","NOIR"),("TREFLE","NOIR")]
+debug=False
 
 class Carte:
     def __init__(self, couleur, enseigne, valeurnum, valeur):
@@ -56,25 +57,21 @@ class Paquet:
     def melange(self):
         shuffle(self.cartes)
 
-    def prend_carte(self):
-        return 
+    def vide(self):
+        self.cartes=[]
+        self.cartes.__sizeof__
     
     def distribue(self,p1,p2):
-        # tour=1
-        # for carte in self.cartes:
-        #     if tour==1 :
-        #         p1.ajoute_carte(self.cartes.pop())
-        #         tour=2
-        #     else :
-        #         p2.ajoute_carte(self.cartes.pop())
-        #         tour=1
-        # print()
         p1.cartes = self.cartes[1::2] 
         p2.cartes = self.cartes[0::2]
         print()
-#
-# def copie_paquet(self,paquet_source,paquet_cible):
-#      paquet_cible.cartes =+ paquet_source.cartes
+    
+    def __str__(self):
+        r=""
+        for carte in self.cartes:
+            r=r+carte.valeur+" "+carte.enseigne+"|"
+        return r
+
 
 seed()
 paquet=Paquet("PLEIN")
@@ -83,46 +80,61 @@ paquetj2=Paquet(None)
 paquetjeu=Paquet(None)
 paquet.melange()
 paquet.distribue(paquetj1,paquetj2)
-
+tour=1
 while True:
-    cartej1 = paquetj1.cartes.pop()
-    if cartej1 == None :
+  
+    print("Joueur1:"+str(paquetj1))
+    print("Joueur2:"+str(paquetj2))
+
+    print("Joueur1:"+ str(paquetj1.cartes.__len__()) + " Joueur2:"+str(paquetj2.cartes.__len__()))
+    if paquetj1.cartes.__len__()==0:
         print("Joueur 1 a perdu")
         break
-    cartej2 = paquetj2.cartes.pop()
+    if paquetj2.cartes.__len__()==0:
         print("Joueur 2 a perdu")
         break
 
+    cartej1 = paquetj1.cartes.pop(0)
+    cartej2 = paquetj2.cartes.pop(0)
+
     paquetjeu.ajoute_carte(cartej1)
     paquetjeu.ajoute_carte(cartej2)
+    print("tour:"+str(tour)+" Joueur1:"+ str(cartej1.valeur) + "|" + cartej1.enseigne + " Joueur2:" + str(cartej2.valeur) + "|" + cartej2.enseigne)
     if cartej1.valeurnum > cartej2.valeurnum:
-        print("---------------------")
-        print("Joueur 1 gagne")
-        print("Joueur 1")
-        cartej1.affiche()
-        print("Joueur 2")
-        cartej2.affiche()
-        print("---------------------")
-        paquetj1.cartes+=paquetjeu.cartes
-        paquetjeu=None
+        if debug:
+            print("---------------------")
+            print("Joueur 1 gagne")
+            print("Joueur 1")
+            cartej1.affiche()
+            print("Joueur 2")
+            cartej2.affiche()
+            print("---------------------")
+        paquetj1.cartes.extend(paquetjeu.cartes)
+        paquetjeu.vide()
     if cartej1.valeurnum < cartej2.valeurnum:
-        print("---------------------")
-        print("Joueur 2 gagne")
-        print("Joueur 1")
-        cartej1.affiche()
-        print("Joueur 2")
-        cartej2.affiche()
-        print("---------------------")
-        paquetj2.cartes+=paquetjeu.cartes    
-        paquetjeu=None
+        if debug:
+            print("---------------------")
+            print("Joueur 2 gagne")
+            print("Joueur 1")
+            cartej1.affiche()
+            print("Joueur 2")
+            cartej2.affiche()
+            print("---------------------")
+        paquetj2.cartes.extend(paquetjeu.cartes)
+        paquetjeu.vide()
     if cartej1.valeurnum == cartej2.valeurnum:
-        print("---------------------")
-        print("Bataille")
-        print("Joueur 1")
-        cartej1.affiche()
-        print("Joueur 2")
-        cartej2.affiche()
-        print("---------------------")
+        if debug:
+            print("---------------------")
+            print("Bataille")
+            print("Joueur 1")
+            cartej1.affiche()
+            print("Joueur 2")
+            cartej2.affiche()
+            print("---------------------")
+        if paquetj1.cartes.__len__() > 0 : paquetjeu.ajoute_carte(paquetj1.cartes.pop(0))
+        if paquetj2.cartes.__len__() > 0 : paquetjeu.ajoute_carte(paquetj2.cartes.pop(0))
+ 
+    tour=tour+1
 
         
         

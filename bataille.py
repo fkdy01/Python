@@ -1,6 +1,6 @@
 #evol1
 from random import randint,seed,shuffle
-lcouleurs = ["ROUGE","NOIR"] 
+lcouleurs = ["R","N"] 
 lvaleurs =[ (0,"2"),
             (1,"3"),
             (2,"4"),
@@ -10,12 +10,12 @@ lvaleurs =[ (0,"2"),
             (6,"8"),
             (7,"9"),
             (8,"10"),
-            (9,"VALET"),
-            (10,"DAME"),
-            (11,"ROI"),
-            (12,"AS")] 
-lenseignes=["COEUR","CARREAU","PIQUE","TREFLE"] 
-lenseignescouleur=[("COEUR","ROUGE"),("CARREAU","ROUGE"),("PIQUE","NOIR"),("TREFLE","NOIR")]
+            (9,"V"),
+            (10,"D"),
+            (11,"R"),
+            (12,"A")] 
+lenseignes=["C","K","P","T"] 
+lenseignescouleur=[("C","R"),("K","R"),("P","N"),("T","N")]
 debug=False
 
 class Carte:
@@ -48,11 +48,6 @@ class Paquet:
         for carte in self.cartes:
            # carte.affiche()
            print(carte)
-
-    def switch(self,index1,index2):
-        carte = self.cartes[index1]
-        self.cartes[index1]=self.cartes[index2]
-        self.cartes[index2]=carte
 
     def melange(self):
         shuffle(self.cartes)
